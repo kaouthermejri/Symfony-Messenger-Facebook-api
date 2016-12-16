@@ -1,0 +1,46 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+    encoders:
+        AppBundle\Entity\DatabaseUserVariables: bcrypt
+
+
+    role_hierarchy:
+        ROLE_USER:  ROLE_USER
+        ROLE_ADMIN:  ROLE_USER
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+            database:
+                entity:
+                    class: AppBundle:DatabaseUserVariables
+                    property: email
+                    # if you're using multiple entity managers
+                    # manager_name: customer
+
+
+    firewalls:
+            prod:
+                pattern: ^/
+                provider: database
+                anonymous: ~
+                form_login:
+                    check_path: /login_check
+                    login_path: /kas_tu_esi
+                    default_target_path: /pradzia
+                    always_use_default_target_path: true
+                logout:
+                    path:   /logout
+                    target: /
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/prisijungti, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/pradzia, roles: ROLE_ADMIN}

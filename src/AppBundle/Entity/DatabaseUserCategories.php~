@@ -1,0 +1,33 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Egidijus
+ * Date: 12/15/2016
+ * Time: 11:03 AM
+ */
+
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="user_categories")
+ */
+class DatabaseUserCategories
+{
+    /**
+     * @ORM\Id()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    public $id;
+
+    /**
+     * @ORM\Column(type="string", name="category", length=120)
+     */
+    public $category;
+
+}
