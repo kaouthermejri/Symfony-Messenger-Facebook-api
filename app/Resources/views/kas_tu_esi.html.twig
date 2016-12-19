@@ -7,12 +7,9 @@
         </div>
         <div>
             {{ form_start(form) }}
-                <label class="col-md-12">
-
-                    <a class="btn btn-default btn-block" href="#" role="button"> {{ form_widget(form.category) }}</a></label>
-            {{ form_widget(form.submit) }}
             {{ form_widget(form.senjoras) }}
             {{ form_widget(form.jaunuolis) }}
+            {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
     </div>

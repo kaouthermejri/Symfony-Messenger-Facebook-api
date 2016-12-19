@@ -25,9 +25,10 @@ security:
                 provider: database
                 anonymous: ~
                 form_login:
+                    username_parameter: _email
                     check_path: /login_check
-                    login_path: /kas_tu_esi
-                    default_target_path: /pradzia
+                    login_path: /prisijungti
+                    default_target_path: /kas_tu_esi
                     always_use_default_target_path: true
                 logout:
                     path:   /logout
@@ -43,4 +44,6 @@ security:
     access_control:
         # require ROLE_ADMIN for /admin*
         - { path: ^/prisijungti, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/pradzia, roles: ROLE_ADMIN}
+        - { path: ^/registracija, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+

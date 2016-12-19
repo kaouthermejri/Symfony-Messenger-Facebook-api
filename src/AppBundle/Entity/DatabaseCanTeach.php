@@ -36,4 +36,62 @@ class DatabaseCanTeach
      */
 
     public $sub_category_id;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \AppBundle\Entity\DatabaseUserVariables $userId
+     *
+     * @return DatabaseCanTeach
+     */
+    public function setUserId(\AppBundle\Entity\DatabaseUserVariables $userId = null)
+    {
+        $this->user_id = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \AppBundle\Entity\DatabaseUserVariables
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set subCategoryId
+     *
+     * @param \AppBundle\Entity\DatabaseSubCategories $subCategoryId
+     *
+     * @return DatabaseCanTeach
+     */
+    public function setSubCategoryId(\AppBundle\Entity\DatabaseSubCategories $subCategoryId = null)
+    {
+        $this->sub_category_id = $subCategoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get subCategoryId
+     *
+     * @return \AppBundle\Entity\DatabaseSubCategories
+     */
+    public function getSubCategoryId()
+    {
+        return $this->sub_category_id;
+    }
 }

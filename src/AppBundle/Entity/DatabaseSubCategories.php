@@ -55,4 +55,96 @@ class DatabaseSubCategories
 
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return DatabaseSubCategories
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set categoryId
+     *
+     * @param \AppBundle\Entity\DatabaseCategories $categoryId
+     *
+     * @return DatabaseSubCategories
+     */
+    public function setCategoryId(\AppBundle\Entity\DatabaseCategories $categoryId = null)
+    {
+        $this->category_id = $categoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryId
+     *
+     * @return \AppBundle\Entity\DatabaseCategories
+     */
+    public function getCategoryId()
+    {
+        return $this->category_id;
+    }
+
+    /**
+     * Add subCategory
+     *
+     * @param \AppBundle\Entity\DatabaseCanTeach $subCategory
+     *
+     * @return DatabaseSubCategories
+     */
+    public function addSubCategory(\AppBundle\Entity\DatabaseCanTeach $subCategory)
+    {
+        $this->sub_category[] = $subCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove subCategory
+     *
+     * @param \AppBundle\Entity\DatabaseCanTeach $subCategory
+     */
+    public function removeSubCategory(\AppBundle\Entity\DatabaseCanTeach $subCategory)
+    {
+        $this->sub_category->removeElement($subCategory);
+    }
+
+    /**
+     * Get subCategory
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubCategory()
+    {
+        return $this->sub_category;
+    }
 }

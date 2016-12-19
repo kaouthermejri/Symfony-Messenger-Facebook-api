@@ -20,20 +20,15 @@ class CategoryForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('category')
-        ->add('submit', SubmitType::class)
-        ->add('senjoras', ButtonType::class, array(
-                'attr' => array('value' => 'Senjoras', 'name'=>'Submit'),
-            ))
-            ->add('jaunuolis', ButtonType::class, array(
-                'attr'=>array('value'=>'Jaunuolis', 'name'=>'submit')
-            ));
+        $builder
+        ->add('senjoras', SubmitType::class)
+        ->add('jaunuolis', SubmitType::class);
 
     }
 public function configureOptions(OptionsResolver $resolver)
 {
     $resolver->setDefaults(array(
-        'data_class'=>'AppBundle\Entity\DatabaseUserVariables'
+        'data_class'=>'AppBundle\Form\CategoryFormData'
     ));
 }
 

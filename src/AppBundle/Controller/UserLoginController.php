@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\DatabaseUserVariables;
 use AppBundle\Entity\RememberVariables;
 use AppBundle\Entity\ResetPassVariables;
+use AppBundle\Form\CategoryFormData;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,17 +23,19 @@ class UserLoginController extends Controller
     /**
      * @Route("/prisijungti", name="prisijungti")
      */
-    public function LoginAction(Request $request){
+    public function LoginAction(){
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
-
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('prisijungti.html.twig', array(
             'error'         => $error,
+            'last_username' => $lastUsername
         ));
     }
 
@@ -50,7 +53,7 @@ class UserLoginController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('prisijungti');
         }
         return $this->render('registracija.html.twig', array(
             'form' => $form->createView()
@@ -141,21 +144,32 @@ class UserLoginController extends Controller
 
 
     /**
-     * @Route("/kas_tu_esi/{id}", name="kas_tu_esi")
+     * @Route("/kas_tu_esi", name="kas_tu_esi")
      */
-    public function WhoAreYouAction(Request $request, $id){
-        $user=$this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->findOneBy(array(
-            'id'=>$id
-        ));
-        $category= new DatabaseUserVariables();
+    public function WhoAreYouAction(Request $request){
+
+        $user=$this->getUser();
+
+        if(empty($user)){
+            exit('esi neprisijunges.');
+        }
+
+        $category= new CategoryFormData();
         $form=$this->createForm('AppBundle\Form\CategoryForm', $category);
+
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()){
-            $user->setCategory($category->category);
+
+            if ($form->get('senjoras')->isClicked()) {
+                $user->setCategory('senjoras');
+            }elseif ($form->get('jaunuolis')->isClicked()) {
+                $user->setCategory('jaunuolis');
+            }
             $em=$this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute("priminti_slaptazodi");
+            return $this->redirectToRoute("ko_nori_ismokti");
         }
         return $this->render("kas_tu_esi.html.twig", array(
             'form'=>$form->createView()

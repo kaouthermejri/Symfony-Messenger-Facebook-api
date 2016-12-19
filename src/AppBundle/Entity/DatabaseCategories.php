@@ -40,4 +40,72 @@ class DatabaseCategories
     }
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return DatabaseCategories
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add subCategory
+     *
+     * @param \AppBundle\Entity\DatabaseSubCategories $subCategory
+     *
+     * @return DatabaseCategories
+     */
+    public function addSubCategory(\AppBundle\Entity\DatabaseSubCategories $subCategory)
+    {
+        $this->sub_categories[] = $subCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove subCategory
+     *
+     * @param \AppBundle\Entity\DatabaseSubCategories $subCategory
+     */
+    public function removeSubCategory(\AppBundle\Entity\DatabaseSubCategories $subCategory)
+    {
+        $this->sub_categories->removeElement($subCategory);
+    }
+
+    /**
+     * Get subCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubCategories()
+    {
+        return $this->sub_categories;
+    }
 }

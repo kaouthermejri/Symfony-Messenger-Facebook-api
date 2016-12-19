@@ -46,9 +46,19 @@ class DatabaseUserVariables implements UserInterface
     private $password;
 
     /**
+     * @var array
+     */
+    private $roles = array('ROLE_USER');
+
+    /**
      * @ORM\Column(type="string", name="category", length=120)
      */
     public $category;
+
+    /**
+     * @ORM\Column(type="string", name="image", length=255)
+     */
+    public $image;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\DatabaseCanTeach", mappedBy="user_id")
@@ -97,11 +107,11 @@ class DatabaseUserVariables implements UserInterface
     /**
      * Get Username
      *
-     * @return string
+     * @return mixed
      */
     public function getUsername()
     {
-        return $this->name_surname;
+        return $this->email;
     }
 
     /**
@@ -145,7 +155,7 @@ class DatabaseUserVariables implements UserInterface
     /**
      * Get email
      *
-     * @return string
+     * @return mixed
      */
     public function getEmail()
     {
@@ -179,7 +189,7 @@ class DatabaseUserVariables implements UserInterface
     }
     public function getRoles()
     {
-        return array('ROLE_ADMIN');
+        return $this->roles;
     }
 
     public function eraseCredentials()
@@ -214,5 +224,63 @@ class DatabaseUserVariables implements UserInterface
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Add canTeach
+     *
+     * @param \AppBundle\Entity\DatabaseCanTeach $canTeach
+     *
+     * @return DatabaseUserVariables
+     */
+    public function addCanTeach(\AppBundle\Entity\DatabaseCanTeach $canTeach)
+    {
+        $this->can_teach[] = $canTeach;
+
+        return $this;
+    }
+
+    /**
+     * Remove canTeach
+     *
+     * @param \AppBundle\Entity\DatabaseCanTeach $canTeach
+     */
+    public function removeCanTeach(\AppBundle\Entity\DatabaseCanTeach $canTeach)
+    {
+        $this->can_teach->removeElement($canTeach);
+    }
+
+    /**
+     * Get canTeach
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCanTeach()
+    {
+        return $this->can_teach;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return DatabaseUserVariables
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
