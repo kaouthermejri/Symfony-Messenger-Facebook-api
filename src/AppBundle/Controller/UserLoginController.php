@@ -175,8 +175,52 @@ class UserLoginController extends Controller
             'form'=>$form->createView()
         ));
     }
+    /**
+     * @Route("/ko_nori_ismokti", name="ko_nori_ismokti")
+     */
+    public function WantToLearnAction(){
+        $user=$this->getUser();
+        if(empty($user)){
+            return $this->redirectToRoute('prisijungti');
+        }
+        $categories=$this->getDoctrine()->getRepository("AppBundle:DatabaseCategories")->findAll();
+        return $this->render("ko_nori_ismokti.html.twig", array(
+           'categories'=>$categories
+        ));
 
 
+    }
 
+    /**
+     * @Route("/ko_nori_ismokti/{category}", name="ko_nori_ismokti_sub")
+     */
+    public function WantToLearnSubAction($category){
+        $user=$this->getUser();
+        if(empty($user)){
+            return $this->redirectToRoute('prisijungti');
+        }
+        $categories=$this->getDoctrine()->getRepository('AppBundle:DatabaseCategories')-> findOneBy(array(
+            'category'=>$category
+        ));
+        $sub_categories=$this->getDoctrine()->getRepository('AppBundle:DatabaseSubCategories')->findBy(array(
+            'category_id'=>$categories->getId()
+        ));
+        return $this->render('ko_nori_ismokti_sub.html.twig', array(
+            'categories' => $sub_categories,
+            'category' => $category
+        ));
+
+    }
+
+    /**
+     * @Route("/ko_nori_ismokti/{category}/{sub_category}", name="ko_nori_ismokti_Teachers")
+     */
+    public function WantToLearnTeachersAction($category, $sub_category){
+        $user=$this->getUser();
+        if(empty($user)){
+            return $this->redirectToRoute('prisijungti');
+        }
+
+    }
 
 }
