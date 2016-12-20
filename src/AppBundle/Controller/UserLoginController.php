@@ -220,7 +220,46 @@ class UserLoginController extends Controller
         if(empty($user)){
             return $this->redirectToRoute('prisijungti');
         }
+        $sub_category_id=$this->getDoctrine()->getRepository('AppBundle:DatabaseSubCategories')->findOneBy(array(
+            'category'=>$sub_category
+        ));
+        $sub_category_all=$this->getDoctrine()->getRepository('AppBundle:DatabaseCanTeach')->findBy(array(
+            'sub_category_id'=>$sub_category_id->getId()
+
+        ));
+        return $this->render("ko_nori_ismokti_teachers.html.twig", array(
+            'canTeach' => $sub_category_all,
+            'sub_category' => $category
+        ));
+    }
+
+    /**
+     * @Route("/mano_paskyra", name="mano_paskyra")
+     */
+    public function UserPaskyra(){
+        $user=$this->getUser();
+        if (empty($user)){
+            return $this->redirectToRoute("prisijungti");
+        }
+
+        $user=$this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->findOneBy(array(
+            'user'=>$this->getUser()
+        ));
+        $cant_teach=$this->getDoctrine()->getRepository('AppBundle:DatabaseCanTeach')->findBy(array(
+            'user_id'=>$user
+        ));
+        return $this->render("mano_paskyra.html.twig", array(
+            'name'=>$user->getNameSurname(),
+            'email'=>$user->getEmail(),
+            'image'=>$user->getImage(),
+            'teach'=>'',
+            'test'=>$user,
+            'offer'=>$cant_teach
+
+        ));
 
     }
+
+
 
 }
