@@ -1,0 +1,28 @@
+{% extends 'default/base.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block body %}
+    <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
+        <div>
+            <label class="col-md-12" style="text-align: center">Naujas slaptažodis</label>
+        </div>
+        {{ form_start(form) }}
+        <div class="form-group">
+            <label class="col-md-12">{{ form_label(form.oldPassword) }}</label>
+            <label class="col-md-12">{{ form_widget(form.oldPassword) }}</label>
+
+            <label class="col-md-12">{{ form_label(form.newPassword.first) }}</label>
+            {{ form_errors(form.password.first) }}
+            <label class="col-md-12">{{ form_widget(form.newPassword.first) }}</label>
+            <label class="col-md-12">{{ form_label(form.newPassword.second) }}</label>
+            {{ form_errors(form.password.second) }}
+            <label class="col-md-12">{{ form_widget(form.newPassword.second) }}</label>
+        </div>
+        <div>
+            <label class="col-md-12" >{{ form_widget(form.submit) }}</label>
+        </div>
+        <div style="display: none">
+            {{ form_rest(form) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

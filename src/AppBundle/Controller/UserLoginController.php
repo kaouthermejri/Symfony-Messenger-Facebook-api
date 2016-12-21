@@ -11,6 +11,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\DatabaseUserVariables;
 use AppBundle\Entity\RememberVariables;
 use AppBundle\Entity\ResetPassVariables;
+use AppBundle\Entity\UpdateUserPass;
+use AppBundle\Entity\UserUpdateVar;
 use AppBundle\Form\CategoryFormData;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -149,7 +151,6 @@ class UserLoginController extends Controller
     public function WhoAreYouAction(Request $request){
 
         $user=$this->getUser();
-
         if(empty($user)){
             exit('esi neprisijunges.');
         }
@@ -241,25 +242,105 @@ class UserLoginController extends Controller
         if (empty($user)){
             return $this->redirectToRoute("prisijungti");
         }
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $user=$this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->findOneBy(array(
-            'user'=>$this->getUser()
-        ));
         $cant_teach=$this->getDoctrine()->getRepository('AppBundle:DatabaseCanTeach')->findBy(array(
             'user_id'=>$user
         ));
         return $this->render("mano_paskyra.html.twig", array(
-            'name'=>$user->getNameSurname(),
+            'name_surname'=>$user->getNameSurname(),
             'email'=>$user->getEmail(),
             'image'=>$user->getImage(),
-            'teach'=>'',
-            'test'=>$user,
-            'offer'=>$cant_teach
+            'can_teach'=>$cant_teach
 
+        ));
+
+    }
+    /**
+     * @Route("/mano_paskyra/redaguoti", name="paskyros_redagavimas")
+     */
+    public function RedaguotiUser(Request $request){
+        $user=$this->getUser();
+        if (empty($user)){
+            return $this->redirectToRoute('prisijungti');
+        }
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $entity=$this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->find(array(
+            'id'=>$user
+        ));
+        $user_update=new UserUpdateVar();
+        $user_update->name_surname=$entity->getNameSurname();
+        $user_update->email=$entity->getEmail();
+        $user_update->phone_number=$entity->getPhoneNumber();
+
+        $form=$this->createForm('AppBundle\Form\UserUpdateForm',$user_update);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $entity->setNameSurname($user_update->name_surname);
+            $entity->setEmail($user_update->email);
+            $entity->setPhoneNumber($user_update->phone_number);
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirectToRoute('mano_paskyra');
+        }
+        return $this->render("mano_paskyra_redaguoti.html.twig", array(
+            'form' => $form->createView(),
+            'image' => $entity->getImage(),
+        ));
+    }
+
+    /**
+     * @Route("/mano_paskyra/redaguoti/slaptazodis", name="redaguoti_slaptazodi")
+     */
+    public function RedaguotiUserSlaptazodi(Request $request){
+        $user=$this->getUser();
+        if (empty($user)){
+            return $this->redirectToRoute('prisijungti');
+        }
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $entity=$this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->find(array(
+            'id'=>$user
+        ));
+
+        $update_password=new UpdateUserPass();
+
+        $form=$this->createForm('AppBundle\Form\UpdateUserPassForm', $update_password);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $password = $this->get('security.password_encoder')->encodePassword($entity, $entity->getPassword());
+            $entity->setPassword($password);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($entity);
+            $manager->flush();
+            return $this->redirectToRoute('prisijungti');
+        }
+        return $this->render('keisti_slaptazodi.html.twig',array(
+            'form'=>$form->createView()
         ));
 
     }
 
 
+
+
+    /**
+     * @Route("/mano_paskyra/redaguoti/nuotrauka", name="redaguoti_nuotrauka")
+     */
+    public function RedaguotiUserNuotrauka(){
+        $user=$this->getUser();
+        if (empty($user)){
+            return $this->redirectToRoute('prisijungti');
+        }
+
+
+    }
 
 }
