@@ -1,5 +1,6 @@
 {% extends 'default/base.html.twig' %}
 {% block body %}
+    {{ dump(can_teach) }}
     <div class="col-md-4" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
         <div>
             <label class="col-md-12" style="text-align: center">Mano paskyra</label>
@@ -13,7 +14,7 @@
         <div>
             <label class="col-md-12">Aš galiu išmokyti:</label>
             {% for value in can_teach %}
-                <label class="col-md-12">&#9899;{{ value.subCategoryId.category }}  <a href="/delete/sub_category/{{ value.subCategoryId.id }}">Ištrinti</a></label>
+                <label class="col-md-12">&#9899;{{ value.parent_id.parent }}  <a href="/delete/sub_category/{{ value.parent_id.parent }}">Ištrinti</a></label>
             {% endfor %}
         </div>
         <div>

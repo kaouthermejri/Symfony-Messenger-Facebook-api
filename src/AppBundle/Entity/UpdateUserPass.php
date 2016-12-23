@@ -17,7 +17,7 @@ class UpdateUserPass
  *      message="Neteisingai įvestas dabartinis slaptažodis"
  * )
  */
-    protected $oldPassword;
+    public $oldPassword;
 
     /**
      * @Assert\Length(
@@ -25,7 +25,7 @@ class UpdateUserPass
      *     minMessage = "Minimum 6 simboliai"
      * )
      */
-    protected $newPassword;
+    public $newPassword;
 
 
 }

@@ -7,11 +7,11 @@
         </div>
         {{ form_start(form) }}
         <div class="form-group col-md-12" style="border: 1px solid;">
-            <label class="col-md-6"><img src={{ image }}  class="img-responsive"></label>
+            <label class="col-md-4"><img src={{ image }}  class="img-responsive"></label>
             <label class="col-md-12"><a href="/mano_paskyra/redaguoti/nuotrauka">Keisti nuotrauką</a></label>
 
         </div>
-        <div class="form-group col-md-8" style="border: 1px solid;">
+        <div class="form-group col-md-12" style="border: 1px solid;">
 
             <label class="col-md-12">{{ form_label(form.name_surname) }}</label>
             <label class="col-md-12">{{ form_widget(form.name_surname) }}</label>

@@ -60,6 +60,8 @@ class DatabaseUserVariables implements UserInterface
      */
     public $image;
 
+
+
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\DatabaseCanTeach", mappedBy="user_id")
      */
@@ -283,4 +285,5 @@ class DatabaseUserVariables implements UserInterface
     {
         return $this->image;
     }
+
 }

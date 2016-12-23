@@ -1,14 +1,15 @@
 {% extends 'default/base.html.twig' %}
 {% block body %}
+    {{ dump(category) }}
     <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
         <div>
             <label class="col-md-12" style="text-align: center">Ko norite išmokti?</label>
-            <label class="col-md-12" style="text-align: center">{{ category }}</label>
+            <label class="col-md-12" style="text-align: center">{{ category.category }}</label>
         </div>
         <div>
             {%  for value in categories %}
                 <label class="col-md-12">
-                    <a class="btn btn-default btn-block" href="/ko_nori_ismokti/{{ category }}/{{ value.category }}" role="button"> {{ value.category }}</a></label>
+                    <a class="btn btn-default btn-block" href="/ko_nori_ismokti/{{ category.id }}/{{ value.id }}" role="button"> {{ value.category }}</a></label>
             {% endfor %}
         </div>
         <div>

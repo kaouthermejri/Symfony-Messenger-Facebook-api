@@ -31,11 +31,11 @@ class DatabaseCanTeach
     public $user_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DatabaseSubCategories", inversedBy="sub_category")
-     * @ORM\JoinColumn(name="sub_category_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DatabaseCategories", inversedBy="can_teach_parent")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
 
-    public $sub_category_id;
+    public $parent_id;
 
     /**
      * Get id
@@ -71,27 +71,29 @@ class DatabaseCanTeach
         return $this->user_id;
     }
 
+
+
     /**
-     * Set subCategoryId
+     * Set parentId
      *
-     * @param \AppBundle\Entity\DatabaseSubCategories $subCategoryId
+     * @param \AppBundle\Entity\DatabaseCategories $parentId
      *
      * @return DatabaseCanTeach
      */
-    public function setSubCategoryId(\AppBundle\Entity\DatabaseSubCategories $subCategoryId = null)
+    public function setParentId(\AppBundle\Entity\DatabaseCategories $parentId = null)
     {
-        $this->sub_category_id = $subCategoryId;
+        $this->parent_id = $parentId;
 
         return $this;
     }
 
     /**
-     * Get subCategoryId
+     * Get parentId
      *
-     * @return \AppBundle\Entity\DatabaseSubCategories
+     * @return \AppBundle\Entity\DatabaseCategories
      */
-    public function getSubCategoryId()
+    public function getParentId()
     {
-        return $this->sub_category_id;
+        return $this->parent_id;
     }
 }
