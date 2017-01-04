@@ -1,0 +1,65 @@
+{% extends 'default/base.html.twig' %}
+{% block body %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+    <div class="col-lg-10" style="border: 1px solid; margin-left: 10%; margin-right: 37%; margin-top: 5%">
+        {{ form_start(form) }}
+
+
+        <div class="col-lg-12">
+            <label class="col-md-3">Vardas pavarde</label>
+            <label class="col-md-2">El. paštas</label>
+            <label class="col-md-3">Registracijos data</label>
+            <label class="col-md-2">Grupė</label>
+            <label class="col-md-2">Veiksmai </label>
+        </div>
+        <div class="col-lg-12">
+            <label class="col-md-3">{{ form_widget(form.name_surname) }}</label>
+            <label class="col-md-2">{{ form_widget(form.email) }}</label>
+            <label class="col-md-3">{{ form_widget(form.created) }}</label>
+            <label class="col-md-2">{{ form_widget(form.category) }}</label>
+            <label class="col-md-2">{{ form_widget(form.submit) }}</label>
+        </div>
+
+        {% for value in user %}
+            <div class="col-lg-12">
+                <label class="col-md-2">{{ value.nameSurname }}</label>
+                <label class="col-md-3">{{ value.email }}</label>
+                <label class="col-md-3">{{ value.created.date }}</label>
+                <label class="col-md-2">{{ value.category }}</label>
+                <label class="col-md-2"><a href="/2/{{ value.id }}">Redaguoti</a> | <a data-toggle="modal" data-target="#myModal{{ value.id }}">Ištrinti</a></label>
+            </div>
+        {% endfor %}
+        <div style="display: none">
+            {{ form_rest(form) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+
+    {% for value in user %}
+
+        <div class="modal fade" id="myModal{{ value.id }}" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ar tikrai norite ištrinti šį vartotoją:{{ value.nameSurname }} </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
+                        <a href="/1/delete/{{ value.id }}"><button type="button" href="" class="btn btn-default" >Trinti</button></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

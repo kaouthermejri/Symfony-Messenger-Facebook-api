@@ -1,0 +1,14 @@
+{% extends 'default/base.html.twig' %}
+{% block body %}
+    <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
+        <div>
+            <label class="col-md-12" style="text-align: center">Ką galite išmokinti?</label>
+        </div>
+        <div>
+            {%  for value in categories %}
+                <label class="col-md-12">
+                    <a class="btn btn-default btn-block" href="/galiu_ismokyti/{{ value.id }}" role="button"> {{ value.category }}</a></label>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

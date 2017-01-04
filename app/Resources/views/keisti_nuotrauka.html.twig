@@ -1,0 +1,25 @@
+{% extends 'default/base.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block body %}
+    <div class="col-md-5" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
+        <div>
+            <label class="col-md-12" style="text-align: center">Mano paskyra</label>
+            <label class="col-md-4"><img src={{ asset('uploads/user_image/') }}{{ image }}  class="img-responsive"></label>
+        </div>
+        {{ form_start(form) }}
+        <div class="form-group col-md-4">
+            <label class="col-md-12">{{ form_label(form.image) }}</label>
+            <label class="col-md-12">{{ form_widget(form.image) }}</label>
+        </div>
+        <div>
+            <label class="col-md-12" >{{ form_widget(form.submit) }}</label>
+        </div>
+        <div style="display: none">
+            {{ form_rest(form) }}
+        </div>
+        {{ form_end(form) }}
+        <div class="form-group col-md-4">
+            <label><a href="">Atgal</a></label>
+        </div>
+    </div>
+{% endblock %}

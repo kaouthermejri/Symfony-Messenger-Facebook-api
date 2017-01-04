@@ -1,0 +1,24 @@
+{% extends 'default/base.html.twig' %}
+{% block body %}
+    {{ dump(categories) }}
+    <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
+        <div>
+            <label class="col-md-12" style="text-align: center">Ką galite išmokinti?</label>
+            <label class="col-md-12" style="text-align: center">{{ category.category }}</label>
+        </div>
+        <div>
+            <form action=""  method="post">
+            {%  for value in categories %}
+                <label class="col-md-12">
+                    <button class="btn btn-default btn-block" type="submit"  id="parent" name="parent" value="{{ value.id }}">{{ value.category }}</button>
+                   </label>
+            {% endfor %}
+            </form>
+        </div>
+        <div>
+            <label class="col-md-12">
+                <a class="btn btn-default btn-block" href="/galiu_ismokyti" role="button">Atgal</a>
+            </label>
+        </div>
+    </div>
+{% endblock %}
