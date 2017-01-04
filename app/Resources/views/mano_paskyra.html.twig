@@ -13,7 +13,7 @@
         <div>
             <label class="col-md-12">Aš galiu išmokyti:</label>
             {% for value in can_teach %}
-                <label class="col-md-12">{{ value.parent_id.category }}  <a href="/delete/parent_kategorija/{{ value.parent_id.parent }}">Ištrinti</a></label>
+                <label class="col-md-12">{{ value.parent_id.category }}  <a href="/delete/parent_kategorija/{{ value.id }}">Ištrinti</a></label>
             {% endfor %}
         </div>
         <div>

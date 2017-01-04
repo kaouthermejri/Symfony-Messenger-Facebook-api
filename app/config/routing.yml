@@ -3,5 +3,5 @@ app:
     type:     annotation
 admin:
     resource: "@AppBundle/Controller/Admin/"
-message:
+page:
     resource: "@AppBundle/Controller/Page/"

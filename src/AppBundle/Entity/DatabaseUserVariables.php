@@ -37,7 +37,7 @@ class DatabaseUserVariables implements UserInterface
     private $phone_number;
 
     /**
-     * @ORM\Column(type="string",length=64)
+     * @ORM\Column(type="string",length=64, unique=true)
      */
     private $email;
 
