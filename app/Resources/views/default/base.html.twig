@@ -13,6 +13,44 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Laba-Karta</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Į pradžią</a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visi Puslapiai <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/kas_tu_esi">Kas tu esi(prisijungus)</a></li>
+                            <li><a href="/ko_nori_ismokti">Ko nori ismokti(prisijungus)</a></li>
+                            <li><a href="/mano_paskyra">Mano paskyra(prisijungus)</a></li>
+                            <li><a href="/zinutes">Žinutės(prisijungus,nebaigta)</a></li>
+                            <li><a href="/priminti_slaptazodi">Priminti slaptažodi(nebaigta)</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#">Apie projektą</a></li>
+                    <li><a href="#">Kaip naudotis</a></li>
+                    <li><a href="#">Apie mus</a></li>
+                    <li><a href="#">Kontaktai</a></li>
+                    <li><a href={{ path('prisijungti') }}>Prisijungti</a></li>
+                    <li><a href={{ path('registracija') }}>Registruotis</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

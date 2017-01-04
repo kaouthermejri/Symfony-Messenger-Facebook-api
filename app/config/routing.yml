@@ -1,3 +1,7 @@
 app:
     resource: "@AppBundle/Controller/User/"
     type:     annotation
+admin:
+    resource: "@AppBundle/Controller/Admin/"
+message:
+    resource: "@AppBundle/Controller/Page/"

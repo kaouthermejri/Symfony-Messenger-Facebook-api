@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -46,6 +47,13 @@ class DatabaseUserVariables implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Version
+     * @var \DateTime
+     */
+    private $created = null;
+
+    /**
      * @var array
      */
     private $roles = array('ROLE_USER');
@@ -57,8 +65,14 @@ class DatabaseUserVariables implements UserInterface
 
     /**
      * @ORM\Column(type="string", name="image", length=255)
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 400,
+     *     minHeight = 200,
+     *     maxHeight = 400
+     * )
      */
-    public $image;
+    private $image;
 
 
 
@@ -286,4 +300,28 @@ class DatabaseUserVariables implements UserInterface
         return $this->image;
     }
 
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return DatabaseUserVariables
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 }
