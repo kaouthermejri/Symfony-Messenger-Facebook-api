@@ -11,7 +11,7 @@ namespace AppBundle\Entity;
 
 class AdminUserSearchVar
 {
-    public $name_surname;
+    public $username;
 
     public $email;
 

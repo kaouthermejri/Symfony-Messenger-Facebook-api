@@ -26,7 +26,7 @@ class Password extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
 
         $update_password = new UpdateUserPass();

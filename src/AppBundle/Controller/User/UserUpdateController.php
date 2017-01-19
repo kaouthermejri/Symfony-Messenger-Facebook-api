@@ -26,13 +26,15 @@ class UserUpdateController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute("prisijungti");
+            return $this->redirectToRoute('fos_user_security_login');
         }
+
+
         $cant_teach = $this->getDoctrine()->getRepository('AppBundle:DatabaseCanTeach')->findBy(array(
             'user_id' => $user,
         ));
         return $this->render("mano_paskyra.html.twig", array(
-            'name_surname' => $user->getNameSurname(),
+            'name_surname' => $user->getUsername(),
             'email' => $user->getEmail(),
             'image' => $user->getImage(),
             'can_teach' => $cant_teach
@@ -54,10 +56,10 @@ class UserUpdateController extends Controller
          * */
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
         $user_update = new UserUpdateVar();
-        $user_update->name_surname = $user->getNameSurname();
+        $user_update->username = $user->getUsername();
         $user_update->email = $user->getEmail();
         $user_update->phone_number = $user->getPhoneNumber();
 
@@ -66,7 +68,7 @@ class UserUpdateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setNameSurname($user_update->name_surname);
+            $user->setUsername($user_update->username);
             $user->setEmail($user_update->email);
             $user->setPhoneNumber($user_update->phone_number);
 
@@ -90,7 +92,7 @@ class UserUpdateController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
         $user_image = new UserImage();
 

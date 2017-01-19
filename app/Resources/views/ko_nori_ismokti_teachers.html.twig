@@ -8,8 +8,8 @@
         <div>
             {% for value in canTeach %}
 
-                <label class="col-md-12">{{ value.userId.nameSurname }}
-                    <a class="btn btn-default" href="#" role="button">Rašyti žinutę</a></label>
+                <label class="col-md-12">{{ value.userId.username }}
+                    <a class="btn btn-default" href="{{ path('fos_message_thread_new') }}" role="button">Rašyti žinutę</a></label>
             {% endfor %}
         </div>
     </div>

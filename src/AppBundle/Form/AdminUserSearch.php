@@ -19,7 +19,7 @@ class AdminUserSearch extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name_surname', SearchType::class,array(
+        $builder->add('username', SearchType::class,array(
             'label'=>'Vardas Pavardė'
         ))->add('email', SearchType::class,array(
             'label'=>'El. Paštas'

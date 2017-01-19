@@ -5,3 +5,21 @@ admin:
     resource: "@AppBundle/Controller/Admin/"
 page:
     resource: "@AppBundle/Controller/Page/"
+facebook_login:
+    path: /login/check-facebook
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login/facebook
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /login/facebook
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login/facebook
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /zinutes

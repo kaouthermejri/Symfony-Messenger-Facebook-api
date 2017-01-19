@@ -18,11 +18,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class UserLoginController extends Controller
 {
 
-    /**
-     * @Route("/prisijungti", name="prisijungti")
-     */
+
     public function LoginAction()
     {
+        $user = $this->getUser();
+        if (!empty($user)) {
+            return $this->redirectToRoute('index');
+        }
+
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -39,7 +42,7 @@ class UserLoginController extends Controller
     }
 
     /**
-     * @Route("/login_check", name="login_check")
+     * @Route("/user/login_check", name="user_login_check")
      */
     public function loginCheckAction()
     {

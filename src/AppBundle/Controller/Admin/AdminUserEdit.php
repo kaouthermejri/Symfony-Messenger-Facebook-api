@@ -25,9 +25,11 @@ class AdminUserEdit extends Controller
     {
         $admin = $this->getUser();
         if (empty($admin)) {
-            $this->redirectToRoute('prisijungti');
+//            $this->redirectToRoute('prisijungti');
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $user = $this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->findAll();
+
+        $user = $this->getDoctrine()->getRepository('AppBundle:FosUser')->findAll();
 
         $userSearch = new AdminUserSearchVar();
 
@@ -53,15 +55,15 @@ class AdminUserEdit extends Controller
 
         $admin = $this->getUser();
         if (empty($admin)) {
-            $this->redirectToRoute('prisijungti');
+            $this->redirectToRoute('fos_user_security_login');
         }
-        $user = $this->getDoctrine()->getRepository('AppBundle:DatabaseUserVariables')->find($id);
+        $user = $this->getDoctrine()->getRepository('AppBundle:FosUser')->find($id);
 
 
 
         $editForm=new AdminEditUser();
 
-        $editForm->name_surname=$user->getNameSurname();
+        $editForm->username=$user->getUsername();
         $editForm->email=$user->getEmail();
         $editForm->phone_number=$user->getPhoneNumber();
         $editForm->category=$user->getCategory();
@@ -82,7 +84,7 @@ class AdminUserEdit extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
 
-            $user->setNameSurname($editForm->name_surname);
+            $user->setUsername($editForm->username);
             $user->setEmail($editForm->email);
             $user->setPhoneNumber($editForm->phone_number);
             $user->setCategory($editForm->category);
@@ -116,7 +118,7 @@ class AdminUserEdit extends Controller
         return $this->render(':Admin:user_edit.html.twig',array(
             'form'=>$form->createView(),
             'picture'=>$user->getImage(),
-            'user'=>$user->getNameSurname(),
+            'user'=>$user->getUsername(),
             'id'=>$user->getId()
         ));
     }

@@ -13,14 +13,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class Messenger extends Controller
 {
-    /**
-     * @Route("/zinutes", name="zinutes")
-     */
-    public function messageAction(){
-        $user=$this->getUser();
-        if (empty($user)){
-            $this->redirectToRoute('prisijungti');
+
+    public function messageAction()
+    {
+
+        $user = $this->getUser();
+        if (empty($user)) {
+            return $this->redirectToRoute('fos_user_security_login');
         }
-        return $this->render('zinutes.html.twig');
+        $provider = $this->get('fos_message.provider');
+        $threads = $provider->getInboxThreads();
+
+
+        return $this->render('zinutes.html.twig', array(
+            'message' => $threads
+        ));
+
     }
+
+
+
+
 }

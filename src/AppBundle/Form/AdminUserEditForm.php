@@ -24,7 +24,7 @@ class AdminUserEditForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name_surname',TextType::class,array(
+        $builder->add('username',TextType::class,array(
             'label'=>'Vardas Pavardė',
             'required'=>false
         ))->add('email', EmailType::class,array(

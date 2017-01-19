@@ -11,24 +11,24 @@ namespace AppBundle\Entity;
 
 class UserUpdateVar
 {
-    public $name_surname;
+    public $username;
     public $email;
     public $phone_number;
 
     /**
      * @return mixed
      */
-    public function getNameSurname()
+    public function getUsername()
     {
-        return $this->name_surname;
+        return $this->username;
     }
 
     /**
-     * @param mixed $name_surname
+     * @param mixed $username
      */
-    public function setNameSurname($name_surname)
+    public function setUsername($username)
     {
-        $this->name_surname = $name_surname;
+        $this->username = $username;
     }
 
     /**

@@ -62,7 +62,7 @@ class CategoryController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
         $categories = $this->getDoctrine()->getRepository("AppBundle:DatabaseCategories")->findBy(array(
             'parent'=>null
@@ -81,7 +81,7 @@ class CategoryController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
         $categories = $this->getDoctrine()->getRepository('AppBundle:DatabaseCategories')->findOneBy(array(
             'id' => $categoryId
@@ -107,7 +107,7 @@ class CategoryController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
         $sub_category_id = $this->getDoctrine()->getRepository('AppBundle:DatabaseCategories')->findOneBy(array(
             'id' => $sub_categoryId
@@ -133,7 +133,7 @@ class CategoryController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
         $categories = $this->getDoctrine()->getRepository("AppBundle:DatabaseCategories")->findBy(array(
             'parent'=>null
@@ -151,7 +151,7 @@ class CategoryController extends Controller
     {
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute('prisijungti');
+            return $this->redirectToRoute('fos_user_security_login');
         }
 
         $categoriesRepository = $this->getDoctrine()->getRepository('AppBundle:DatabaseCategories');
@@ -195,7 +195,7 @@ class CategoryController extends Controller
     public function deleteCanTeach($id){
         $user = $this->getUser();
         if (empty($user)) {
-            return $this->redirectToRoute("prisijungti");
+            return $this->redirectToRoute("fos_user_security_login");
         }
         $cant_teach = $this->getDoctrine()->getRepository('AppBundle:DatabaseCanTeach')->findOneBy(array(
             'user_id' =>$user

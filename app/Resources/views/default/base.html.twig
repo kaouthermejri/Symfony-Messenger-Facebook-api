@@ -9,6 +9,8 @@
 
             <!-- Optional theme -->
             <link rel="stylesheet" href={{ asset('css/bootstrap-theme.min.css') }}>
+            <link rel="stylesheet" href={{ asset('css/customCss.css') }}>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -46,7 +48,7 @@
                     <li><a href="#">Kaip naudotis</a></li>
                     <li><a href="#">Apie mus</a></li>
                     <li><a href="#">Kontaktai</a></li>
-                    <li><a href={{ path('prisijungti') }}>Prisijungti</a></li>
+                    <li><a href={{ path('fos_user_security_login') }}>Prisijungti</a></li>
                     <li><a href={{ path('registracija') }}>Registruotis</a></li>
                     <li><a href={{ path('logout') }}>Atsijungti</a></li>
                 </ul>
@@ -54,6 +56,7 @@
         </div>
     </nav>
         {% block body %}{% endblock %}
+    {% block fos_user_content %}{% endblock %}
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <script src={{ asset('js/bootstrap.min.js') }}></script>

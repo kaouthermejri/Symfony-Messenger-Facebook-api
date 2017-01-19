@@ -3,11 +3,13 @@
 security:
     encoders:
         AppBundle\Entity\DatabaseUserVariables: bcrypt
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
 
     role_hierarchy:
         ROLE_USER:  ROLE_USER
         ROLE_ADMIN:  ROLE_USER, ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_USER,ROLE_ADMIN,ROLE_SUPER_ADMIN
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -17,22 +19,48 @@ security:
                     property: email
                     # if you're using multiple entity managers
                     # manager_name: customer
+            fos_userbundle:
+                        id: fos_user.user_provider.username_email
+            hwi:
+                        id: hwi_oauth.user.provider
+
+
+
 
 
     firewalls:
-            prod:
+
+            main:
                 pattern: ^/
-                provider: database
-                anonymous: ~
                 form_login:
-                    username_parameter: _email
-                    check_path: /login_check
+                    provider: fos_userbundle
+                    csrf_token_generator: security.csrf.token_manager
                     login_path: /prisijungti
+                    check_path: /login_check
+                    failure_path: /login
                     default_target_path: /kas_tu_esi
+
+                oauth:
+                    resource_owners:
+                      facebook:        /login/check-facebook
+                    login_path:        /prisijungti #/login/facebook
+                    use_forward:       false
+                    failure_path:      /login
                     always_use_default_target_path: true
-                logout:
-                    path:   /logout
-                    target: /
+                    default_target_path: /kas_tu_esi
+
+
+                    oauth_user_provider:
+                       # service: hwi_oauth.user.provider.fosub_bridge
+                        service: my_user_provider
+                logout:       true
+                anonymous:    true
+
+
+            login:
+                        pattern:  ^/login$
+                        security: false
+
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -43,8 +71,15 @@ security:
 
     access_control:
         # require ROLE_ADMIN for /admin*
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/prisijungti, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/registracija, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/zinutes/, role: ROLE_USER }
+
+
 
 

@@ -59,7 +59,7 @@ class DatabaseUserVariables implements UserInterface
     private $roles = array('ROLE_USER');
 
     /**
-     * @ORM\Column(type="string", name="category", length=120)
+     * @ORM\Column(type="string", name="category", length=120, nullable=true)
      */
     public $category;
 

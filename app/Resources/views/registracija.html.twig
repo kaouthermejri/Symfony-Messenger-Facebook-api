@@ -1,19 +1,22 @@
 {% extends 'default/base.html.twig' %}
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
 {% block body %}
 
     <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
         <div>
             <label class="col-md-12" style="text-align: center">Registracija</label>
             <label class="col-md-12" style="text-align: center">Registruotis su Facebook</label>
-            <label class="col-md-12" style="text-align: center"> <button type="button" class="btn btn-info btn-lg" href="" data-toggle="modal" data-target="#myModal">Facebook</button></label>
+            <label class="col-md-12" style="text-align: center"> <a href={{ hwi_oauth_login_url('facebook') }}>Registruotis su Facebook</a></label>
 
             <label class="col-md-12" style="text-align: center">- arba -</label>
         </div>
         {{ form_start(form) }}
+
         <div class="form-group">
-            <label class="col-md-12">{{ form_label(form.name_surname) }}</label>
-            <label class="col-md-12">{{ form_widget(form.name_surname) }}</label>
+            <label class="col-md-12">{{ form_label(form.username) }}</label>
+            <label class="col-md-12">{{ form_widget(form.username) }}</label>
+            {{ form_errors(form.username) }}
         </div>
         <div class="form-group">
             <label class="col-md-12">{{ form_label(form.phone_number) }}</label>
@@ -22,6 +25,7 @@
         <div class="form-group">
             <label class="col-md-12">{{ form_label(form.email) }}</label>
             <label class="col-md-12">{{ form_widget(form.email) }}</label>
+            {{ form_errors(form.email) }}
         </div>
         <div class="form-group">
             <label class="col-md-12">{{ form_label(form.password.first) }}</label>

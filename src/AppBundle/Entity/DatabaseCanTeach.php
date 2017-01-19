@@ -25,7 +25,7 @@ class DatabaseCanTeach
     public $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\DatabaseUserVariables", inversedBy="can_teach")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FosUser", inversedBy="can_teach")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
 
@@ -51,11 +51,11 @@ class DatabaseCanTeach
     /**
      * Set userId
      *
-     * @param \AppBundle\Entity\DatabaseUserVariables $userId
+     * @param \AppBundle\Entity\FosUser $userId
      *
      * @return DatabaseCanTeach
      */
-    public function setUserId(\AppBundle\Entity\DatabaseUserVariables $userId = null)
+    public function setUserId(\AppBundle\Entity\FosUser $userId = null)
     {
         $this->user_id = $userId;
 
@@ -65,7 +65,7 @@ class DatabaseCanTeach
     /**
      * Get userId
      *
-     * @return \AppBundle\Entity\DatabaseUserVariables
+     * @return \AppBundle\Entity\FosUser
      */
     public function getUserId()
     {

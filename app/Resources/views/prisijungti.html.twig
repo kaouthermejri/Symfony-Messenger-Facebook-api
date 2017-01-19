@@ -2,29 +2,7 @@
 
 {% block body %}
 
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '137586016736966',
-                xfbml      : true,
-                version    : 'v2.6'
-            });
-        };
 
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <div
-            class="fb-like"
-            data-share="true"
-            data-width="450"
-            data-show-faces="true">
-    </div>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -34,12 +12,12 @@
             data-width="450"
             data-show-faces="true">
     </div>
-<form action="{{ path('login_check') }}" method="post">
+<form action="{{ path('user_login_check') }}" method="POST">
     <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
         <div>
             <label class="col-md-12" style="text-align: center">Prisijungti</label>
             <label class="col-md-12" style="text-align: center">Facebook prisijungimas</label>
-            <label class="col-md-12" style="text-align: center"> <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false"></div></label>
+            <label class="col-md-12" style="text-align: center"> <a href={{ hwi_oauth_login_url('facebook') }}>Login with Facebook</a> </label>
             <label class="col-md-12" style="text-align: center">- arba -</label>
         </div>
 
@@ -69,4 +47,5 @@
         </div>
     </div>
 </form>
+
 {% endblock %}
