@@ -33,10 +33,15 @@ class UserUpdateController extends Controller
         $cant_teach = $this->getDoctrine()->getRepository('AppBundle:DatabaseCanTeach')->findBy(array(
             'user_id' => $user,
         ));
+        $image=$user->getImage();
+
+        if (empty($image)){
+             $image=$user->getTemporaryImage();
+        }
         return $this->render("mano_paskyra.html.twig", array(
             'name_surname' => $user->getUsername(),
             'email' => $user->getEmail(),
-            'image' => $user->getImage(),
+            'image' => $image,
             'can_teach' => $cant_teach
 
         ));
@@ -78,9 +83,15 @@ class UserUpdateController extends Controller
 
             return $this->redirectToRoute('mano_paskyra');
         }
+        $image=$user->getImage();
+
+        if (empty($image)){
+            $image=$user->getTemporaryImage();
+        }
+
         return $this->render("mano_paskyra_redaguoti.html.twig", array(
             'form' => $form->createView(),
-            'image' => $user->getImage(),
+            'image' => $image,
         ));
     }
 
@@ -94,6 +105,13 @@ class UserUpdateController extends Controller
         if (empty($user)) {
             return $this->redirectToRoute('fos_user_security_login');
         }
+        $image=$user->getImage();
+
+        if (empty($image)){
+            $image=$user->getTemporaryImage();
+        }
+
+
         $user_image = new UserImage();
 
         $form = $this->createForm('AppBundle\Form\UserImageForm', $user_image);
@@ -106,26 +124,38 @@ class UserUpdateController extends Controller
              */
             $file=$user_image->getImage();
             $filesystem=new Filesystem();
-            $delete=$this->getParameter('image_directory').$user->getImage();
-            $filesystem->remove($delete);
-            $imageName=$user->getEmail().'.'.$file->guessExtension();
+            if ((!empty($user->getImage()))){
+                $filename=pathinfo($user->getImage());
+                $name=$filename['filename'];
+                $mask="$name.";
+                $extensions=array('jpg','gif','png','jpeg');
+                foreach ($extensions as $all) {
+                    $delete = $this->getParameter('image_directory') . '/' . $mask . $all;
+                    $filesystem->remove($delete);
+                }
 
-            $file->move(
-                $this->getParameter('image_directory'),
-                $imageName
-            );
+            }
+                $imageName = strtolower($user->getEmail() . '.' . $file->guessExtension());
 
-            $user_image->setImage($imageName);
-            $user->setImage($imageName);
-            $em=$this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+                $file->move(
+                    $this->getParameter('image_directory'),
+                    $imageName
+                );
 
-            return $this->redirectToRoute('mano_paskyra');
-        }
+                $user_image->setImage($imageName);
+                $user->setImage($imageName);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                return $this->redirectToRoute('mano_paskyra');
+            }
+
+
+
         return $this->render("keisti_nuotrauka.html.twig", array(
             'form' => $form->createView(),
-            'image'=> $user->getImage(),
+            'image'=> $image,
         ));
 
     }

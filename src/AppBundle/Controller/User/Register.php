@@ -35,7 +35,7 @@ class Register extends Controller
             $passwod=$this->get('security.password_encoder')->encodePassword($user,$user->getPassword());
             $user->setPassword($passwod);
             $user->setEnabled('1');
-            $user->setImage('user-default.png');
+            $user->setTemporaryImage('user-default.png');
             $em=$this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
