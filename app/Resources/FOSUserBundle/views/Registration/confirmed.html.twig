@@ -1,0 +1,21 @@
+{% extends(':default:base.html.twig') %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="col-md-3" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
+        <div>
+            <label class="col-md-12" style="text-align: center">Sveiki, <p>{{  user.username }}</p></label>
+            <label class="col-md-12" style="text-align: center">Jūsų profilis sėkmingai užregistruotas</label>
+            <label class="col-md-12" style="text-align: center"><a href="{{ path('kas_tu_esi') }}">Pradėkite mokytis arba mokyti!</a></label>
+        </div>
+    </div>
+
+
+
+
+
+    {% if targetUrl %}
+    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+    {% endif %}
+{% endblock fos_user_content %}

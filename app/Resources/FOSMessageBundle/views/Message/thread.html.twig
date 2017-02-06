@@ -1,0 +1,44 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block fos_message_content %}
+
+
+
+    <div class="inbox-body">
+        <h4>Tema</h4>
+        <h2>{{ thread.subject }}</h2><br>
+        <h4>Autorius</h4>
+        <h2>{{ thread.messages.owner.createdBy }}</h2>
+        <table class="table table-inbox table-hover">
+    {% for message in thread.messages %}
+            <tbody>
+            <tr class="unread">
+                <td class="view-message  dont-show">{{ message.sender }} </td>
+                <td class="view-message  dont-show"><div class="messenger_thread_message_body" id="message_{{ message.id }}">
+                        {{ message.body }}
+                    </div> </td>
+                <td class="view-message "></td>
+                <td class="view-message  inbox-small-cells"></td>
+                <td class="view-message  text-right"></td>
+            </tr>
+            </tbody>
+    {% endfor %}
+        </table>
+        <div class="message_write">
+        <h3>Atsakyti</h3>
+
+        <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+            {{ form_widget(form) }}
+
+            <input type="submit" value="Atsakyti"/>
+        </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

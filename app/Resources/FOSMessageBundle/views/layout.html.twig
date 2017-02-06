@@ -1,0 +1,57 @@
+{% extends 'default/base.html.twig' %}
+{% block body %}
+{#<script src="{{ asset('js/messenger.js') }}"></script>#}
+<div class="container" style="margin-top: 5%">
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <div class="mail-box">
+        <aside class="sm-side">
+            <div class="user-head">
+                <div class="user-name">
+                    <h2>Mano Žinutės</h2>
+                </div>
+                <a class="mail-dropdown pull-right" href="javascript:;">
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+            </div>
+            <div class="inbox-body">
+                <a href="{{ url('fos_message_thread_new') }}" data-toggle="modal"  title="Compose"    class="btn btn-compose">
+                    Rašyti naują žinutę
+                </a>
+            </div>
+            <ul class="inbox-nav inbox-divider">
+                <li class="">
+                    <a href="{{ url('fos_message_inbox') }}"><i class="fa fa-inbox"></i> Mano žinutės </a>
+
+                </li>
+                <li>
+                    <a href="{{ url('fos_message_sent') }}"><i class="fa fa-envelope-o"></i> Išsiustos žinutės</a>
+                </li>
+                <li>
+                    <a a href="{{ url('fos_message_deleted') }}"><i class=" fa fa-trash-o"></i> Ištrintos žinutės</a>
+                </li>
+            </ul>
+
+        </aside>
+        <aside class="lg-side">
+            <div class="inbox-head">
+                <h3>Žinutės</h3>
+                <form action="#" class="pull-right position">
+                    <div class="input-append">
+                        <input type="text" class="sr-input" placeholder="Ieškoti žinutės">
+                        <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            {% block fos_message_content %}{% endblock %}
+        </aside>
+    </div>
+</div>
+
+
+
+
+
+
+
+<link rel="stylesheet" href={{ asset('css/messenger/messenger.css') }}>
+{% endblock %}

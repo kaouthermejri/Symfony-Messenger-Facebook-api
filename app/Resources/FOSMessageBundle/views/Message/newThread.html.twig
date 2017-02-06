@@ -1,0 +1,14 @@
+{% extends 'FOSMessageBundle::layout.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block fos_message_content %}
+
+<h2>Rašyti naują žinutę</h2>
+
+<form action="{{ url('fos_message_thread_new') }}" method="post">
+    <div class="message_write" style="text-align: center">
+    {{ form_widget(form) }}
+    </div>
+    <input type="submit" value="Išsiusti" />
+</form>
+
+{% endblock %}

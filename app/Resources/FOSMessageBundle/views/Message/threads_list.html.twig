@@ -1,0 +1,52 @@
+
+
+
+
+    <tbody>
+
+    {% if threads %}
+        {% for thread in threads %}
+            <div class="inbox-body">
+                <table class="table table-inbox table-hover">
+                    <tbody>
+                    <tr class="unread">
+                        <td class="inbox-small-cells">
+                            <input type="checkbox" class="mail-checkbox">
+                        </td>
+                        <td class="view-message  dont-show"> <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">{{ thread.createdBy }}</a></td>
+                        <td class="view-message "> <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                                {{ thread.subject }}
+                            </a>
+
+                            {% if not fos_message_is_read(thread) %}
+                                ({% trans from 'FOSMessageBundle' %}new{% endtrans %})
+                            {% endif %}</td>
+                        <td class="view-message  inbox-small-cells"><a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">{{ thread.createdAt|date }}</a></td>
+                        <td class="view-message  text-right">  {% if fos_message_can_delete_thread(thread) %}
+                                {% if fos_message_deleted_by_participant(thread) %}
+                                    {% set formAction %}{{ url('fos_message_thread_undelete', {'threadId': thread.id}) }}{% endset %}
+                                    {% set submitValue %}{% trans from 'FOSMessageBundle' %}Gražinti{% endtrans %}{% endset %}
+                                {% else %}
+                                    {% set formAction %}{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}{% endset %}
+                                    {% set submitValue %}{% trans from 'FOSMessageBundle' %}Trinti Pokalbį{% endtrans %}{% endset %}
+                                {% endif %}
+                                <form action="{{ formAction }}" method="post">
+                                    <input type="submit" value="{{ submitValue }}" />
+                                </form>
+                            {% endif %}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="6">
+                {% trans from 'FOSMessageBundle' %}Nėra pokalbių{% endtrans %}.
+            </td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+
+

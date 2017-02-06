@@ -1,0 +1,41 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends 'default/base.html.twig' %}
+{% block fos_user_content %}
+
+
+        <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <div class="login-container" style="border: 1px solid; margin-left: 37%; margin-right: 37%; margin-top: 5%">
+                    <div>
+                        <label class="col-md-12" style="text-align: center ; font-family: 'Times New Roman'">Prisijungti</label>
+                        <label class="col-md-12" style="text-align: center; font-family: 'Times New Roman'">Facebook prisijungimas</label>
+                        <label class="col-md-12" style="text-align: center; font-family: 'Times New Roman'"> <a href={{ hwi_oauth_login_url('facebook') }}>Prisijungti su Facebook</a> </label>
+                        <label class="col-md-12" style="text-align: center; font-family: 'Times New Roman'">- arba -</label>
+                    </div>
+                    <div>
+                        {% if error %}
+                            <div class="alert alert-danger col-md-12" role="alert">
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <form>
+                        <label class="col-md-12"  style="font-family: 'Times New Roman'; text-align: center;" for="username">El. Paštas</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        <label class="col-md-12"  style="font-family: 'Times New Roman'; text-align: center;" for="password">Slaptažodis</label>
+                        <input type="password" id="password" name="_password" required="required" />
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        <label class="col-md-12"  style="font-family: 'Times New Roman'; text-align: center;" for="remember_me">Prisiminti mane</label>
+                        <input type="submit" class="login login-submit" id="_submit" name="_submit" value="Prisijungti" />
+                    </form>
+                    <div class="login-help" style="font-family: 'Times New Roman'">
+                        <a href="{{ path('fos_user_registration_register') }}">Registruotis</a> - <a href="{{ path('fos_user_resetting_request') }}">Pamiršau slaptažodį</a>
+                    </div>
+                </div>
+        </form>
+
+
+
+
+
+{% endblock fos_user_content %}
